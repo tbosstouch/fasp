@@ -25,49 +25,36 @@
             <v-spacer></v-spacer>
 
             <v-card-title class="white--text pl-5 pt-5">
-              <div class="display-1 pl-5 pt-5">Ali Conners</div>
+              <div class="display-1 pl-5 pt-5">{{ user.name }}</div>
             </v-card-title>
           </v-layout>
         </v-card-media>
-
-        <v-list three-line>
-          <v-list-tile class="mt-2">
-            <v-list-tile-content class="mb-3">
-              <v-list-tile-title>Job Roles Background</v-list-tile-title>
-              <span v-for="role in user.jobRole" :key="role.id">
-                <v-list-tile-sub-title>{{ role }}</v-list-tile-sub-title>
-              </span>
-              
-            
-            </v-list-tile-content>
-
-            <v-list-tile-action>
-              <v-icon>chat</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-
-          <v-divider ></v-divider>
-        
-        <v-list-tile class="mt-2">
-            <v-list-tile-content class="mb-3">
-              <v-list-tile-title>Tertiary Qualifications</v-list-tile-title>
-              <v-list-tile-sub-title>BCom</v-list-tile-sub-title>
-              <v-list-tile-sub-title>Software Developement Diploma</v-list-tile-sub-title>
-            </v-list-tile-content>
-
-            <v-list-tile-action>
-              <v-icon>chat</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-        
-        <v-divider ></v-divider>
-          <v-list-tile class="mt-2">
-            <v-list-tile-content class="mb-3">
-              <v-list-tile-title>Skills</v-list-tile-title>
-              <v-list-tile-sub-title>Finacial Accounting</v-list-tile-sub-title>
-              <v-list-tile-sub-title>C++</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
+        <v-card-title>
+          <div>
+            <span class="grey--text">Job Roles Background</span><br>
+            <ul v-for="role in user.jobRole" :key="role.id">
+              <li>{{ role }}</li>
+            </ul>
+          </div>
+          </v-card-title>
+           <v-divider></v-divider>
+           <v-card-title>
+          <div>
+            <span class="grey--text">Qualifications</span><br>
+            <ul v-for="qualification in user.qualifications" :key="qualification.id">
+              <li>{{ qualification }}</li>
+            </ul>
+          </div>
+        </v-card-title>
+        <v-divider></v-divider>
+           <v-card-title>
+          <div>
+            <span class="grey--text">Skills</span><br>
+            <ul v-for="skill in user.skills" :key="skill.id">
+              <li>{{ skill }}</li>
+            </ul>
+          </div>
+        </v-card-title>
 
         <v-divider></v-divider>
         <v-card-actions class="mt-2">
@@ -75,7 +62,7 @@
         <v-btn color="cyan" dark>Request Connection</v-btn>
         <v-btn color="red accent-3" dark :to="{ name: 'AllProfiles' }"> Cancel</v-btn>
         </v-card-actions>
-        </v-list>
+        
     </v-card>
     </v-flex>
   </v-layout>

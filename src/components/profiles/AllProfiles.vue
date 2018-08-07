@@ -14,7 +14,7 @@
         </v-layout>
         <SearchBar />
         <v-layout row wrap class="mt-5">
-            <v-flex xs12>
+            <v-flex xs12 sm10 offset-sm1>
                 <v-card>
                      <v-list two-line subheader>
                             <v-subheader inset>Request a Connection</v-subheader>
