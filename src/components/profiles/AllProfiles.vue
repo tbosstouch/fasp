@@ -27,8 +27,8 @@
                         </v-list-tile-avatar>
 
                         <v-list-tile-content>
-                            <span v-if="user.jobBackground">
-                                <v-list-tile-title>{{ user.jobBackground[0] }}</v-list-tile-title>
+                            <span v-if="user.jobRole">
+                                <v-list-tile-title>{{ user.jobRole[0] }}</v-list-tile-title>
                             </span>
                             <v-list-tile-sub-title>{{ user.name }}</v-list-tile-sub-title>
                         </v-list-tile-content>

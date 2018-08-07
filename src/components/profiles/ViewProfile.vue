@@ -11,10 +11,6 @@
             fill-height
           >
             <v-card-title>
-              <v-btn dark icon>
-                <v-icon>chevron_left</v-icon>
-              </v-btn>
-
               <v-spacer></v-spacer>
 
               <v-btn dark icon class="mr-3">
@@ -34,12 +30,15 @@
           </v-layout>
         </v-card-media>
 
-        <v-list two-line>
+        <v-list three-line>
           <v-list-tile class="mt-2">
             <v-list-tile-content class="mb-3">
               <v-list-tile-title>Job Roles Background</v-list-tile-title>
-              <v-list-tile-sub-title>Accountant</v-list-tile-sub-title>
-              <v-list-tile-sub-title>Software Developer</v-list-tile-sub-title>
+              <span v-for="role in user.jobRole" :key="role.id">
+                <v-list-tile-sub-title>{{ role }}</v-list-tile-sub-title>
+              </span>
+              
+            
             </v-list-tile-content>
 
             <v-list-tile-action>
@@ -73,8 +72,8 @@
         <v-divider></v-divider>
         <v-card-actions class="mt-2">
         
-        <v-btn color="cyan" dark> Request Connection</v-btn>
-        <v-btn color="red accent-3" dark> Cancel</v-btn>
+        <v-btn color="cyan" dark>Request Connection</v-btn>
+        <v-btn color="red accent-3" dark :to="{ name: 'AllProfiles' }"> Cancel</v-btn>
         </v-card-actions>
         </v-list>
     </v-card>
