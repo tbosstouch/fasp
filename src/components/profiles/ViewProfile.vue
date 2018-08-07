@@ -3,7 +3,7 @@
     <v-flex xs12 sm6 offset-sm3 class="mt-4">
       <v-card>
         <v-card-media
-          src="https://cdn.vuetifyjs.com/images/lists/ali.png"
+          :src="user.imageURL"
           height="300px"
         >
           <v-layout
@@ -62,7 +62,6 @@
           </v-list-tile>
         
         <v-divider ></v-divider>
-          
           <v-list-tile class="mt-2">
             <v-list-tile-content class="mb-3">
               <v-list-tile-title>Skills</v-list-tile-title>
@@ -77,9 +76,19 @@
         <v-btn color="cyan" dark> Request Connection</v-btn>
         <v-btn color="red accent-3" dark> Cancel</v-btn>
         </v-card-actions>
-
         </v-list>
     </v-card>
     </v-flex>
   </v-layout>
 </template>
+
+<script>
+export default {
+  props: ['id'],
+  computed: {
+    user() {
+      return this.$store.getters.user(this.id)
+    }
+  }
+}
+</script>

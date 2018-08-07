@@ -25,7 +25,8 @@ export default new Router({
     {
       path: '/viewprofile/:id',
       name: 'ViewProfile',
-      component: ViewProfile
+      component: ViewProfile,
+      props: true
     },
     {
       path: '/register',

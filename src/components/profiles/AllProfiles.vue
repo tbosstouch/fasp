@@ -20,20 +20,21 @@
                             <v-subheader inset>Request a Connection</v-subheader>
                         </v-list>
                 </v-card>
-                <v-card v-for="item in items" :key="item.title" class="mb-0.5">
-                       
-                    <v-list-tile  avatar>
+                <v-card v-for="user in users" :key="user.title" class="mb-0.5">
+                    <v-list-tile  avatar :to="{ name: 'ViewProfile', params: { id: user.id}}">
                         <v-list-tile-avatar>
-                            <img :src="item.imageURL">
+                            <img :src="user.imageURL">
                         </v-list-tile-avatar>
 
                         <v-list-tile-content>
-                            <v-list-tile-title>{{ item.jobBackground }}</v-list-tile-title>
-                            <v-list-tile-sub-title>{{ item.name }}</v-list-tile-sub-title>
+                            <span v-if="user.jobBackground">
+                                <v-list-tile-title>{{ user.jobBackground[0] }}</v-list-tile-title>
+                            </span>
+                            <v-list-tile-sub-title>{{ user.name }}</v-list-tile-sub-title>
                         </v-list-tile-content>
 
                         <v-list-tile-action>
-                            <v-btn icon ripple>
+                            <v-btn icon ripple @click.prevent="printStuff">
                                 <v-icon color="cyan">link</v-icon>
                             </v-btn>
                         </v-list-tile-action>
@@ -49,22 +50,19 @@
 <script>
 import SearchBar from './SearchBar'
 
-  export default {
-    data () {
-      return {
-        items: [
-          { imageURL: 'https://cdn.vuetifyjs.com/images/lists/1.jpg', jobBackground: 'Software Developer', name: 'Ali Connors' },
-          { imageURL: 'https://cdn.vuetifyjs.com/images/lists/2.jpg', jobBackground: 'Accountant', name: 'Alex Scott' },
-          { imageURL: 'https://cdn.vuetifyjs.com/images/lists/3.jpg', jobBackground: 'Marketing Specialist', name: 'Sandra Adams' }
-        ],
-        items2: [
-          { icon: 'assignment', iconClass: 'blue white--text', title: 'Vacation itinerary', subtitle: 'Jan 20, 2014' },
-          { icon: 'call_to_action', iconClass: 'amber white--text', title: 'Kitchen remodel', subtitle: 'Jan 10, 2014' }
-        ]
-      }
+export default {
+    methods: {
+        printStuff() {
+            console.log('THis is for connecting')
+        }
+    },
+    computed: {
+        users() {
+            return this.$store.getters.users
+        },
     },
     components: {
         SearchBar
     }
-  }
+}   
 </script>    
