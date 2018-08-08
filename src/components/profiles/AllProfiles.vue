@@ -23,7 +23,7 @@
                 <v-card v-for="user in users" :key="user.title" class="mb-0.5">
                     <v-list-tile  avatar :to="{ name: 'ViewProfile', params: { id: user.id}}">
                         <v-list-tile-avatar>
-                            <img :src="user.imageURL">
+                            <img :src="user.imageUrl">
                         </v-list-tile-avatar>
 
                         <v-list-tile-content>

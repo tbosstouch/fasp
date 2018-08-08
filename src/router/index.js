@@ -6,6 +6,7 @@ import ViewProfile from '@/components/profiles/ViewProfile'
 import Register from '@/components/auth/Register'
 import Signin from '@/components/auth/Signin'
 import MyConnections from '@/components/connections/MyConnections'
+import MyProfileForm from '@/components/profiles/forms/MyProfileForm'
 
 Vue.use(Router)
 
@@ -21,6 +22,11 @@ export default new Router({
       path: '/myprofile',
       name: 'MyProfile',
       component: MyProfile
+    },
+    {
+      path: '/myprofileform',
+      name: 'MyProfileForm',
+      component: MyProfileForm
     },
     {
       path: '/viewprofile/:id',

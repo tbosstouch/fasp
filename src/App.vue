@@ -21,5 +21,7 @@ export default {
 </script>
 
 <style>
-
+#app {
+  font-family: 'Roboto Regular', 'Avenir', 'Helvetica', 'Arial', 'sans-serif';
+}
 </style>

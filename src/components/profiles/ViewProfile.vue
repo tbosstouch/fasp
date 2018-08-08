@@ -3,7 +3,7 @@
     <v-flex xs12 sm6 offset-sm3 class="mt-4">
       <v-card>
         <v-card-media
-          :src="user.imageURL"
+          :src="user.imageUrl"
           height="300px"
         >
           <v-layout
