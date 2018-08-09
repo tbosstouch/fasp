@@ -25,14 +25,14 @@
             <v-spacer></v-spacer>
 
             <v-card-title class="white--text pl-5 pt-5">
-              <div class="display-1 pl-5 pt-5">{{ user.name }}</div>
+              <div class="display-1 pl-5 pt-5">{{ user.name }} {{ user.lastName }}</div>
             </v-card-title>
           </v-layout>
         </v-card-media>
         <v-card-title>
           <div>
             <span class="grey--text">Job Roles Background</span><br>
-            <ul v-for="role in user.jobRole" :key="role.id">
+            <ul v-for="role in user.jobRoles" :key="role.id">
               <li>{{ role }}</li>
             </ul>
           </div>

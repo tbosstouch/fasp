@@ -20,17 +20,17 @@
                             <v-subheader inset>Request a Connection</v-subheader>
                         </v-list>
                 </v-card>
-                <v-card v-for="user in users" :key="user.title" class="mb-0.5">
+                <v-card v-for="user in users" :key="user.id" class="mb-0.5">
                     <v-list-tile  avatar :to="{ name: 'ViewProfile', params: { id: user.id}}">
                         <v-list-tile-avatar>
                             <img :src="user.imageUrl">
                         </v-list-tile-avatar>
 
                         <v-list-tile-content>
-                            <span v-if="user.jobRole">
-                                <v-list-tile-title>{{ user.jobRole[0] }}</v-list-tile-title>
+                            <span v-if="user.jobRoles">
+                                <v-list-tile-title>{{ user.jobRoles[0] }}</v-list-tile-title>
                             </span>
-                            <v-list-tile-sub-title>{{ user.name }}</v-list-tile-sub-title>
+                            <v-list-tile-sub-title>{{ user.name }} {{ user.lastName }}</v-list-tile-sub-title>
                         </v-list-tile-content>
 
                         <v-list-tile-action>
