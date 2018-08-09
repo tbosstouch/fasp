@@ -115,6 +115,7 @@
           // this.skillString = ''
           
           this.$store.dispatch('createProfile', profileData)
+          this.$router.push({ name: 'AllProfiles'})
 
         }
       }
