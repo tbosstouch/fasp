@@ -14,7 +14,7 @@
         <v-text-field v-model="jobsString" :rules="jobRules"  label="Use a comma to list multiple" placeholder="Job Roles" color="cyan" required></v-text-field>
         <v-text-field v-model="qualString" label="Use a comma to list multiple" placeholder="Qualifications" color="cyan"></v-text-field>
         <v-text-field v-model="skillString" label="Use a comma to list multiple" placeholder="Skills" color="cyan"></v-text-field>
-        <v-btn color="cyan" dark type="submit"  :disabled="!formIsValid">Create</v-btn>
+        <v-btn color="cyan" dark type="submit" :disabled="!formIsValid">Create</v-btn>
       </v-form>
       
     </v-flex>
@@ -107,13 +107,7 @@
             skills: this.skills,
             date: Date.now()
           }
-          // this.name = '',
-          // this.lastName = '',
-          // this.imageUrl = ''
-          // this.jobsString = ''
-          // this.qualString = ''
-          // this.skillString = ''
-          
+         
           this.$store.dispatch('createProfile', profileData)
           this.$router.push({ name: 'AllProfiles'})
 

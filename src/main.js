@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import * as firebase from 'firebase'
 import { store } from './components/store/store'
 
 import Vuetify from 'vuetify'
@@ -20,4 +21,13 @@ new Vue({
   store,
   components: { App },
   template: '<App/>',
+  created() {
+    firebase.initializeApp({
+      apiKey: "AIzaSyCsOqC9TGILAUOXexD852Dg1jpnKI6DqR4",
+      authDomain: "fasp-fp.firebaseapp.com",
+      databaseURL: "https://fasp-fp.firebaseio.com",
+      projectId: "fasp-fp",
+      storageBucket: "fasp-fp.appspot.com",
+    })
+  }
 })
