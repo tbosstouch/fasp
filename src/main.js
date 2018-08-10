@@ -5,12 +5,14 @@ import App from './App'
 import router from './router'
 import * as firebase from 'firebase'
 import { store } from './components/store/store'
+import alertComponent from '@/components/layout/alert'
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import './stylus/main.styl'
 
 Vue.use(Vuetify)
+Vue.component('app-alert', alertComponent)
 
 Vue.config.productionTip = false
 

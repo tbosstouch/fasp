@@ -29,15 +29,25 @@ export const store = new Vuex.Store({
                 skills: ['Engineering Design', 'Electrical Planning']
             },
         ],
-        user : null
+        user : null,
+        loading: false,
+        error: null
     },
     mutations: {
         createProfile(state, payload) {
             state.userProfiles.push(payload)
         },
-        
-        createUser(state, payload) {
+        setUser(state, payload) {
             state.user = payload
+        },
+        setLoading(state, payload) {
+            state.loading = payload
+        },
+        setError(state, payload) {
+            state.error = payload
+        },
+        clearError(state) {
+            state.error = null
         }
     },
     actions: {
@@ -59,6 +69,8 @@ export const store = new Vuex.Store({
         },
 
         firebaseRegisterUser({ commit }, payload) {
+            commit('clearError')
+            commit('setLoading', true)
             firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
             .then(createdUser => {
                 const newUser = {
@@ -67,23 +79,61 @@ export const store = new Vuex.Store({
                     userConnections: {},
                     chatMessages: {}
                 }
-                commit('createUser', newUser)
+                commit('setLoading', false)
+                commit('setUser', newUser)
             })
             .catch(error => {
-                console.log(error.message)
+                commit('setError', error.message)
+                commit('setLoading', false)
             })
+        },
+
+        firebaseLoginUser({ commit }, payload) {
+            commit('clearError')
+            commit('setLoading', true)
+            firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+            .then(returnedUser => {
+                //AT THIS POINT, I MUST ALWAYS CHECK IF THE USER HAS THE FOLLOWING IN THEIR PROFILE
+                //name, last name & something in job Roles, failing witch I must send them back to the register profile form
+                const loggedInUser = {
+                    id: returnedUser.user.uid,
+                    userProfile: {},
+                    userConnections: {},
+                    chatMessages: {}
+                }
+                commit('setLoading', false)
+                commit('setUser', loggedInUser)
+            })
+            .catch(error => {
+                commit('setError', error.message)
+                commit('setLoading', false)
+            })
+        },
+
+        clearError({ commit }) {
+            commit('clearError')
         }
+
     },
     getters: {
         userProfiles(state) {
             return state.userProfiles
         },
-        user(state) {
+        userProfile(state) {
             return(userId) => {
-                return state.userProfiles.find(user => {
-                    return user.id === userId
+                return state.userProfiles.find(userProfile => {
+                    return userProfile.id === userId
                 })
             } 
+        },
+        userLoginState(state) {
+            return state.user
+        },
+        loading(state) {
+            return state.loading
+        },
+        error(state) {
+            return state.error
         }
     }
 })

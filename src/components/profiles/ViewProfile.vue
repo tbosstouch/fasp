@@ -73,7 +73,7 @@ export default {
   props: ['id'],
   computed: {
     user() {
-      return this.$store.getters.user(this.id)
+      return this.$store.getters.userProfile(this.id)
     }
   }
 }

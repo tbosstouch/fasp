@@ -33,14 +33,25 @@ export default {
     data() {
         return {
             sideNav: false,
-            menuItems: [
-                { icon: 'supervisor_account', title: 'All Profiles', link: '/' },
-                { icon: 'link', title: 'My Connections', link: '/myconnections' },
-                { icon: 'person', title: 'My Profile', link: '/myprofile' },
+        }
+    },
+    computed: {
+        menuItems() {
+            let menuItems = [
                 { icon: 'lock_open', title: 'Login', link: '/signin' },
                 { icon: 'face', title: 'Register', link: '/register' },
-                
             ]
+            if (this.userIsAuthenticated) {
+                menuItems = [
+                    { icon: 'supervisor_account', title: 'All Profiles', link: '/' },
+                    { icon: 'link', title: 'My Connections', link: '/myconnections' },
+                    { icon: 'person', title: 'My Profile', link: '/myprofile' },
+                ]
+            }
+            return menuItems
+        },
+        userIsAuthenticated() {
+            return this.$store.getters.userLoginState !== null && this.$store.getters.userLoginState !== undefined
         }
     }
 }
