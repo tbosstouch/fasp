@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import * as firebase from 'firebase'
 
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
     state: {
-        users: [
+        userProfiles : [
             {   id: 'asdfrewq',
                 imageUrl: 'https://cdn.vuetifyjs.com/images/lists/1.jpg', 
                 name: 'Ali Connors',
@@ -28,11 +29,15 @@ export const store = new Vuex.Store({
                 skills: ['Engineering Design', 'Electrical Planning']
             },
         ],
-        
+        user : null
     },
     mutations: {
         createProfile(state, payload) {
-            state.users.push(payload)
+            state.userProfiles.push(payload)
+        },
+        
+        createUser(state, payload) {
+            state.user = payload
         }
     },
     actions: {
@@ -51,15 +56,31 @@ export const store = new Vuex.Store({
 
             //then store the object in state
             commit('createProfile', profile)
+        },
+
+        firebaseRegisterUser({ commit }, payload) {
+            firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+            .then(createdUser => {
+                const newUser = {
+                    id: createdUser.user.uid,
+                    userProfile: {},
+                    userConnections: {},
+                    chatMessages: {}
+                }
+                commit('createUser', newUser)
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
         }
     },
     getters: {
-        users(state) {
-            return state.users
+        userProfiles(state) {
+            return state.userProfiles
         },
         user(state) {
             return(userId) => {
-                return state.users.find(user => {
+                return state.userProfiles.find(user => {
                     return user.id === userId
                 })
             } 

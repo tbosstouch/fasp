@@ -20,7 +20,7 @@
                             <v-subheader inset>Request a Connection</v-subheader>
                         </v-list>
                 </v-card>
-                <v-card v-for="user in users" :key="user.id" class="mb-0.5">
+                <v-card v-for="user in userProfiles" :key="user.id" class="mb-0.5">
                     <v-list-tile  avatar :to="{ name: 'ViewProfile', params: { id: user.id}}">
                         <v-list-tile-avatar>
                             <img :src="user.imageUrl">
@@ -57,8 +57,8 @@ export default {
         }
     },
     computed: {
-        users() {
-            return this.$store.getters.users
+        userProfiles() {
+            return this.$store.getters.userProfiles
         },
     },
     components: {

@@ -39,7 +39,7 @@
     },
     methods: {
         registerUser() {
-            console.log({email: this.email, password: this.password, confirmPassword: this.confirmPassword})
+            this.$store.dispatch('firebaseRegisterUser', { email: this.email, password: this.password })
         }
     }
   }
