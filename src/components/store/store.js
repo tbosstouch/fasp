@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as firebase from 'firebase'
+import firebase from 'firebase'
+import db from '@/firestore/init'
 
 Vue.use(Vuex)
 
@@ -34,6 +35,10 @@ export const store = new Vuex.Store({
         error: null
     },
     mutations: {
+        setUserProfiles(state, payload) {
+            //state.userProfiles.push(payload)
+            state.userProfiles = payload
+        },
         createProfile(state, payload) {
             state.userProfiles.push(payload)
         },
@@ -51,9 +56,35 @@ export const store = new Vuex.Store({
         }
     },
     actions: {
+        getUserProfiles({ commit }) {
+            commit('setLoading', true)
+            const userProfiles = []
+            db.collection('user_profiles').get()
+            .then(snapshot => {
+                snapshot.forEach(doc => {
+                    let userProfile = {
+                        id: doc.id,
+                        imageUrl: doc.data().imageUrl,
+                        name: doc.data().name + " " + doc.data().lastName,
+                        jobRoles: doc.data().jobRoles,
+                        qualifications: doc.data().qualifications,
+                        skills: doc.data().skills
+                    }
+                    userProfiles.push(userProfile)
+            })
+            commit('setUserProfiles', userProfiles)
+            commit('setLoading', false)
+        })
+        .catch(error => {
+            console.log(error.message)
+            commit('setLoading', false)
+        })
+        },
         createProfile({ commit }, payload) {
+            //Get the currently logged on user firebase uid to link it up with the profile below
+            //i.e the currently signed-in user == user_id in user_profiles
+
             const profile = {
-                id: 'jjjjtheieirh',
                 name: payload.name,
                 lastName: payload.lastName,
                 imageUrl: payload.imageUrl,
@@ -62,10 +93,18 @@ export const store = new Vuex.Store({
                 skills: payload.skills,
                 date: payload.date
             }
-            //Store profile in firebase and then get user_id to store it with the new object in state
-
-            //then store the object in state
-            commit('createProfile', profile)
+            //Store profile in firebase and then get user_id 
+            db.collection('user_profiles').add(profile)
+            .then(newProfile => {
+                //then store the object in state
+                commit('createProfile', {
+                    ...profile,
+                    id: newProfile.id
+                })
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
         },
 
         firebaseRegisterUser({ commit }, payload) {
@@ -73,6 +112,9 @@ export const store = new Vuex.Store({
             commit('setLoading', true)
             firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
             .then(createdUser => {
+                //Connect the new user with the user_profiles. This connection will be used when building up the user's profile
+                db.collection('user_profiles').add({ 'user_id': createdUser.user.uid })
+                //Then prepare the data to be saved in the local state object
                 const newUser = {
                     id: createdUser.user.uid,
                     userProfile: {},
@@ -84,6 +126,7 @@ export const store = new Vuex.Store({
             })
             .catch(error => {
                 commit('setError', error.message)
+                console.log(error)
                 commit('setLoading', false)
             })
         },
